@@ -250,11 +250,12 @@ def load_inception(model_path):
     return model
 
 def vgg_preprocess(batch):
+    device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
     tensortype = type(batch.data)
     (r, g, b) = torch.chunk(batch, 3, dim = 1)
     batch = torch.cat((b, g, r), dim = 1) # convert RGB to BGR
     batch = (batch + 1) * 255 * 0.5 # [-1, 1] -> [0, 255]
-    mean = tensortype(batch.data.size()).cuda()
+    mean = tensortype(batch.data.size(), device=device)
     mean[:, 0, :, :] = 103.939
     mean[:, 1, :, :] = 116.779
     mean[:, 2, :, :] = 123.680

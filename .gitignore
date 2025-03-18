@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# folders
+input_images/*
+output_images/*
+# folders that name start with output images
+output_images_*
+
 # C extensions
 *.so
 

@@ -36,13 +36,15 @@ import numpy as np
 
 import cv2
 
+device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+
 class LogLoss(nn.Module):
     def __init__(self, use_gpu = True):
         super(LogLoss, self).__init__()
         self.log_block = LogEachBlock()
         self.loss = nn.L1Loss()
         if use_gpu:
-            self.log_block.cuda()
+            self.log_block.to(device)
 
     def __call__(self, input_A, input_B):
         log_A = self.log_block(input_A)
