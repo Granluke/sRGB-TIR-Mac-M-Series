@@ -9,6 +9,9 @@ output_images/*
 # folders that name start with output images
 output_images_*
 
+# weights files
+*.pt
+
 # C extensions
 *.so
 
